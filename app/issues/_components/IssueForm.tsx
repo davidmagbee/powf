@@ -12,6 +12,7 @@ import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import dynamic from 'next/dynamic';
 import { z } from 'zod';
+import { Issue } from '@prisma/client';
 
 const SimpleMDE =dynamic(
   () => import('react-simplemde-editor'), 
@@ -20,7 +21,7 @@ const SimpleMDE =dynamic(
 
 type IssueFormData = z.infer<typeof createIssueSchema>
 
-const IssueForm = () => {
+const IssueForm = ({ issue }: { issue?: Issue }) => {
   const router = useRouter()
   const {register, control, handleSubmit, formState: { errors }} = useForm<IssueForm>({
     resolver: zodResolver(createIssueSchema)
@@ -51,7 +52,7 @@ const IssueForm = () => {
           onSubmit={onSubmit}
       >
         <TextField.Root>
-            <TextField.Input placeholder='Title' {...register('title')}/>
+            <TextField.Input defaultValue={issue?.title} placeholder='Title' {...register('title')}/>
         </TextField.Root>
           <ErrorMessage>
             {errors.title?.message}
@@ -59,6 +60,7 @@ const IssueForm = () => {
         <Controller 
             name="description"
             control={control}
+            defaultValue={issue?.description}
             render={({ field }) => (
               <SimpleMDE placeholder='Description'{...field}/>
             )}
@@ -66,7 +68,7 @@ const IssueForm = () => {
         <ErrorMessage>
           {errors.description?.message}
         </ErrorMessage>
-        <Button disabled={isSubmitting}>Submit New Issue {isSubmitting && <Spinner />}</Button>
+        <Button disabled={isSubmitting}>Submit Issue {isSubmitting && <Spinner />}</Button>
       </form>
     </div>
   )
