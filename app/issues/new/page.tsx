@@ -34,8 +34,6 @@ const NewIssuePage = () => {
     }
   })
 
-
-  
   return (
     <div className='max-w-xl'>
       {error && (
