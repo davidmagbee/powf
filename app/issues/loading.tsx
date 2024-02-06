@@ -31,7 +31,9 @@ const LoadingIssuesPage = () => {
                         <Table.Cell className='hidden md:table-cell'>
                             <Skeleton />
                         </Table.Cell>
-                        <Table.Cell className='hidden md:table-cell'>{issue.createdAt.toDateString()}</Table.Cell>
+                        <Table.Cell className='hidden md:table-cell'>
+                            <Skeleton />
+                        </Table.Cell>
                     </Table.Row>
                     ))}
                 </Table.Body>
