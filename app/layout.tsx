@@ -35,7 +35,6 @@ export default function RootLayout({
                   {children}
                 </Container>  
               </main> 
-              {/* <ThemePanel /> */}
             </Theme>
           </AuthProvider>
         </QueryClientProvider>
